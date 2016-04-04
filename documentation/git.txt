@@ -1,6 +1,6 @@
 Download github project:
 
-	$ git clone https://github.com/huskylin.git
+	$ git clone https://github.com/huskylin/2016_Web_Fund
 
 After modified some files, check status and difference:
 

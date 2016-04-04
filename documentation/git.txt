@@ -1,0 +1,20 @@
+Download github project:
+
+	$ git clone https://github.com/huskylin.git
+
+After modified some files, check status and difference:
+
+	$ git status
+	$ git diff
+
+Add all file into stage:
+
+	$ git add -A
+
+Commit message:
+
+	$ git commit -m 'commit message'
+
+Push your modified files to remote:
+
+	$ git push origin master

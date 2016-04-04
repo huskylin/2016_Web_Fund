@@ -22,10 +22,6 @@ Project structure:
             ├── urls.py
             └── wsgi.py
 
-Start server:
-
-        $ python3 manage.py runserver 0.0.0.0:8080
-
 
 1.2 Create Index Page
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -33,6 +29,7 @@ Start server:
 Now we want to create a index page. First you have to create templates directory.
 
         $ mkdir templetes
+        $ mkdir -p static/{images,scripts,sytlesheets}
 
         my_app
         ├── manage.py
@@ -40,13 +37,26 @@ Now we want to create a index page. First you have to create templates directory
         │   ├── __init__.py
         │   ├── settings.py
         │   ├── urls.py
+        │   ├── views.py
         │   └── wsgi.py
+        ├── manage.py
+        ├── static
+        │   ├── images
+        │   ├── scripts
+        │   └── stylesheets
+        │       └── index.css
         └── templates
             └── index.html
 
 in settings.py find TEMPLATES and set DIRS:
 
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
+
+Set static DIRS:
+
+        STATICFILES_DIRS = [
+            os.path.join(BASE_DIR, "static"),
+        ]
 
 create views.py:
 
@@ -59,3 +69,8 @@ in urls.py urlpatters add:
 
         url(r'^$', index),
         url(r'^index/$', index);
+
+Start server:
+
+        $ python3 manage.py runserver 0.0.0.0:8080
+

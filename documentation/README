@@ -30,7 +30,7 @@ Now we want to create a index page. First you have to create templates directory
 
 	$ python3 manage.py startapp main_pages
         $ mkdir main_pages/templetes
-	$ touch main_pages/index.html
+	$ touch main_pages/templetes/index.html
         $ mkdir -p static/{images,scripts,sytlesheets}
 
         my_app
@@ -56,21 +56,29 @@ Now we want to create a index page. First you have to create templates directory
             ├── scripts
             └── stylesheets
                 └── index.css
-
-Set static DIRS:
+In myapp/settings.py, set static DIRS:
 
         STATICFILES_DIRS = [
             os.path.join(BASE_DIR, "static"),
         ]
 
-create views.py:
+And set Installed applications:
+
+	INSTALLED_APPS = (
+		# 'other_app',
+		'main_pages',
+	)
+
+In main_pages/views.py:
 
         from django.shortcuts import render_to_response
 
         def index(request):
                 return render_to_response('index.html', locals())
 
-in urls.py urlpatters add:
+in myapp/urls.py urlpatters add:
+
+	from main_pages import index
 
         url(r'^$', index),
         url(r'^index/$', index);

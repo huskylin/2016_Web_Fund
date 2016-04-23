@@ -6,11 +6,13 @@
   <link rel="stylesheet" href="/static/stylesheets/index.css">
 </head>
 <body>
-  <h1>Husky Profile</h1>
-  <ul>
-    <li>{{ husky.name }}</li>
-    <li>{{ husky.age }}</li>
-    <li>{{ husky.horoscope }}</li>
-  </ul>
+  <h1>Profile</h1>
+  {% for person in people %}
+    <ul>
+      <li>{{ person.name }}</li>
+      <li>{{ person.age }}</li>
+      <li>{{ person.horoscope }}</li>
+    </ul>
+  {% endfor %}
 </body>
 </html>

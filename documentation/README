@@ -77,6 +77,24 @@ Start server:
 1.3 basic Render method
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+In html file you see:
+
+	{{ food.name }}
+
+Is maybe is:
+
+	food.name  =>  food['name']  # food is a dictionary
+	food.name  =>  food.name     # food is a class, name is property
+	food.name  =>  food.name()   # food is a class, name is method
+and:
+	foo.0      =>  foo[0]       # foo is a list
+
+Loop through a list:
+
+	{% for food in foods %}
+		{{ food.name }}
+	{% endfor %}
+
 1.4 Nice Artical
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

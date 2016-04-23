@@ -18,3 +18,12 @@ Commit message:
 Push your modified files to remote:
 
 	$ git push origin master
+
+
+Fetch from remote project:
+
+	$ git fetch origin master
+
+Merge:
+
+	$ git merge origin/master

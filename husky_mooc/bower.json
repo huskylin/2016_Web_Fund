@@ -1,0 +1,22 @@
+{
+  "name": "husky_mooc",
+  "homepage": "https://github.com/huskylin/2016_Web_Fund",
+  "authors": [
+    "YogaPan <godhand1234567@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "static/bower_components/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "^15.0.1",
+    "jquery": "^2.2.3"
+  }
+}

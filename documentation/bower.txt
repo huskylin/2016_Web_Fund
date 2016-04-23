@@ -1,0 +1,13 @@
+Official website: http://bower.io/
+
+Initialisze:
+
+	$ bower init
+
+Install package:
+
+	$ bower install react jquery --save
+
+Install dependencies from bower.json
+
+	$ bower install

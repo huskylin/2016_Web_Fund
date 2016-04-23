@@ -92,8 +92,26 @@ and:
 Loop through a list:
 
 	{% for food in foods %}
+		{{ forloop.counter }}
 		{{ food.name }}
+	{% empty %}
+		# If foods in empty, show this block
 	{% endfor %}
+
+Loop reverse:
+
+	{% for food in foods reversed %}
+
+Counter:
+	forloop.counter       # count from 1
+	forloop.counter()     # count from 0
+	forloop.revcounter    # reversed count to 1
+	forloop.revcounter()  # reversed count to 0
+	forloop.first	      # True or False
+	forloop.last          # True or False
+	forloop.parentloop    # parant loop variable
+
+
 
 1.4 Nice Artical
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

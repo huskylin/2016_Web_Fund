@@ -7,12 +7,15 @@
 </head>
 <body>
   <h1>Profile</h1>
-  {% for person in people %}
+  {% for person in people reversed %}
+    <h1>{{ forloop.counter }}</h1>
     <ul>
       <li>{{ person.name }}</li>
       <li>{{ person.age }}</li>
       <li>{{ person.horoscope }}</li>
     </ul>
+  {% empty %}
+  <p>There's no person profile here!!</p>
   {% endfor %}
 </body>
 </html>

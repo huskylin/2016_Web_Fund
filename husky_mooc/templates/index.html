@@ -7,12 +7,18 @@
 </head>
 <body>
   <h1>Profile</h1>
+  <h2>Here have {{ people | length }} people</h2>
   {% for person in people reversed %}
     <h1>{{ forloop.counter }}</h1>
     <ul>
       <li>{{ person.name }}</li>
       <li>{{ person.age }}</li>
       <li>{{ person.horoscope }}</li>
+      {% if person.is_handsome %}
+        <li>This guy is so handsome!</li>
+      {% else %}
+        <li>This guy sucks!</li>
+      {% endif %}
     </ul>
   {% empty %}
   <p>There's no person profile here!!</p>

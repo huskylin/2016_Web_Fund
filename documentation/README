@@ -95,7 +95,7 @@ Loop through a list:
 		{{ forloop.counter }}
 		{{ food.name }}
 	{% empty %}
-		# If foods in empty, show this block
+		<p>If foods in empty, show this text</p>
 	{% endfor %}
 
 Loop reverse:
@@ -110,6 +110,13 @@ Counter:
 	forloop.first	      # True or False
 	forloop.last          # True or False
 	forloop.parentloop    # parant loop variable
+
+Condition:
+	{% if food.is_spicy %}
+	  <p>Ahhhh! This one spicy!!</p>
+	{% else %}
+	  <p>This food is so godd!!</p>
+	{% endif %}
 
 
 

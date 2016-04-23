@@ -28,7 +28,9 @@ Project structure:
 
 Now we want to create a index page. First you have to create templates directory.
 
-        $ mkdir templetes
+	$ python3 manage.py startapp main_pages
+        $ mkdir main_pages/templetes
+	$ touch main_pages/index.html
         $ mkdir -p static/{images,scripts,sytlesheets}
 
         my_app
@@ -37,20 +39,23 @@ Now we want to create a index page. First you have to create templates directory
         │   ├── __init__.py
         │   ├── settings.py
         │   ├── urls.py
-        │   ├── views.py
         │   └── wsgi.py
-        ├── manage.py
-        ├── static
-        │   ├── images
-        │   ├── scripts
-        │   └── stylesheets
-        │       └── index.css
-        └── templates
-            └── index.html
-
-in settings.py find TEMPLATES and set DIRS:
-
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+	├── main_pages
+	│   ├── __init__.py
+	│   ├── admin.py
+	│   ├── apps.py
+	│   ├── views.py
+	│   ├── models.py
+	│   ├── tests.py
+	│   ├── migrations
+	│   │   └── __init__.py
+	│   └── templates
+	│       └── index.html
+        └── static
+            ├── images
+            ├── scripts
+            └── stylesheets
+                └── index.css
 
 Set static DIRS:
 

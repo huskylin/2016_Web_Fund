@@ -149,8 +149,7 @@ See sql language:
 
 Apply migration:
 	
-	$ python3 manage.py migrate login_system 0001
-
+	$ python3 manage.py migrate
 
 
 1.5 Nice Artical

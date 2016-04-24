@@ -136,6 +136,11 @@ Condition:
 1.4 Models and migrations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Create a new application:
+
+	$ python3 manage.py startapp login_system
+	$ mkdir login_system/templates
+
 Write your models:
 
 	from django.db import models
@@ -236,8 +241,35 @@ From User get Post:
 
 post_set work like "objects", they have same method.
 
+1.5 Admin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1.5 Nice Artical
+
+$ python3 manage.py createsuperuser
+
+urls.py
+
+	urlpatterns = patterns('',
+	    url(r'^admin/', include(admin.site.urls)),
+	    url(r'^menu/$', menu),
+	)
+
+login_system/admin.py
+
+	from django.contrib import admin
+	from login_system.models import User, Post
+
+	class UserAdmin(admin.Models):
+		list_display  = ('username', 'age', 'date')
+		list_filter   = ('is_handsome',)
+		search_fields = ('username',)
+		fielfs        = ('username', 'age', 'is_handsome')
+		ordering      = ('-age', 'date')
+
+	admin.site.register(User, UserAdmin)
+
+
+1.6 Nice Artical
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - http://dokelung-blog.logdown.com/archives

@@ -24,3 +24,10 @@ $ python3 manage.py migrate
 $ python3 manage.py runserver 8080
 ```
 open localhost:8080 in your browser and see result
+
+### Admin
+
+```sh
+$ python3 manage.py createsuperuser
+```
+open localhost:8080/admin and login

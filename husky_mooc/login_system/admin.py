@@ -9,11 +9,13 @@ class UserAdmin(admin.ModelAdmin):
     fields        = ('username', 'nickname', 'age', 'is_handsome')
     ordering      = ('-age', 'date')
 
+
 class PostAdmin(admin.ModelAdmin):
     list_display  = ('user', 'content', 'date')
     search_fields = ('user__username',)
     fields        = ('user', 'content')
     ordering      = ('date',)
+
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Post, PostAdmin)

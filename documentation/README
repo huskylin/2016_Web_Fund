@@ -260,13 +260,17 @@ login_system/admin.py
 	from login_system.models import User, Post
 
 	class UserAdmin(admin.Models):
-		list_display  = ('username', 'age', 'date')
-		list_filter   = ('is_handsome',)
-		search_fields = ('username',)
-		fielfs        = ('username', 'age', 'is_handsome')
-		ordering      = ('-age', 'date')
+	    list_display  = ('username', 'age', 'date')
+       	    list_filter   = ('is_handsome',)
+       	    search_fields = ('username',)
+       	    fielfs        = ('username', 'age', 'is_handsome')
+       	    ordering      = ('-age', 'date')
+
+	class PostAdmin(admin.Models):
+	    search_fielfs = ('user__username')
 
 	admin.site.register(User, UserAdmin)
+	admin.site.register(Post, PostAdmin)
 
 
 1.6 Nice Artical

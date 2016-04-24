@@ -136,20 +136,105 @@ Condition:
 1.4 Models and migrations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Check is models have error or problem:
+Write your models:
 
-	$ python3 manage.py validate
+	from django.db import models
+
+	class User(models.Model):
+	    username = models.CharField(max_length=50)
+	    age      = models.DecimalField(max_digits=100, decimal_places=0)
+
+	    def __str__(self):
+		return self.username
+
+	    class Meta:
+		ordering = ['age', 'username']
+
+	class Post:
+	    user    = models.ForeingKey(User)
+	    content = models.CharField(max_length=100)
+	    date    = models.DateField(auto_now_add=True)
+
+	    def __str__(self):
+		"""Show class name"""
+		return self.content
+
+	    class Meta:
+		"""Default order."""
+		ordering = ['content']
+
+Check is models have error or problem:
+	$ python3 manage.py check
 
 Migration:
 	$ python3 manage.py makemigrations login_system
-	
-See sql language:
 
+See sql language:
 	$ python3 manage.py sqlmigration login_system 0001
 
 Apply migration:
-	
 	$ python3 manage.py migrate
+
+Shell:
+	$ python3 manage.py shell
+
+Import your models:
+
+	>>> from login_system.models import User, Post
+
+Create users:
+
+	>>> User.objects.create(username='yoga', age=20, is_handsome=True)
+	>>> User.objects.create(username='husky', age=99, is_handsome=True)
+
+Query:
+
+	>>> User.objects.all()
+	[<User: yoga>, <User: husky>]
+
+	>>> User.objects.get(id=1)
+	<User: yoga>
+
+	>>> User.objects.filter(username__contains='y', age=20)
+	[<User: yoga>]
+
+	>>> User.objects.order_by('age')
+	[<User: yoga>, <User: husky>]
+
+Combine all together:
+
+	>>> yoga = User.objects.order_by('age').filter(username__contains='yog').get()
+	<User: yoga>
+
+	>>> Post.objects.create(user=yoga, content="I'm so handsome!")
+	>>> p = Post.objects.get(id=1)
+	[<Post: I'm so handsome!>]
+
+Update:
+
+	>>> User.objects.filter(name=yoga).update(is_handsome=False)
+
+Delete:
+
+	# method1
+	>>> User.objects.filter(name=husky).delete()
+
+	# method2
+	>>> husky = User.objects.filter(name=husky).get()
+	>>> husky.delete()
+
+
+From Post get User:
+
+	>>> p.user.username
+	'yoga'
+
+From User get Post:
+
+	>>> yoga.post_set.all()
+	[<Post: I'm so handsome!>]
+
+post_set work like "objects", they have same method.
 
 
 1.5 Nice Artical

@@ -241,11 +241,12 @@ From User get Post:
 
 post_set work like "objects", they have same method.
 
+
 1.5 Admin
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-$ python3 manage.py createsuperuser
+Create super user:
+	$ python3 manage.py createsuperuser
 
 urls.py
 
@@ -273,7 +274,32 @@ login_system/admin.py
 	admin.site.register(Post, PostAdmin)
 
 
-1.6 Nice Artical
+1.6 Form
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Create forms.py:
+	$ touch login_system/forms.py
+
+Create your form model:
+
+	from django import forms
+
+	class SignupForm(forms.Form):
+	    username = form.CharField(max_length=50)
+	    password = form.CharField(max_length=50, widget=forms.PasswordInput)
+	    email    = form.EmailField(max_length=50)
+
+Open shell:
+
+	$ python3 manage.py shell
+
+	>>> from login_system.forms import SignupForm
+
+	>>> f = SignupForm()
+	>>> print(f)
+
+
+1.7 Nice Artical
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - http://dokelung-blog.logdown.com/archives

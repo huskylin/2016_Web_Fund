@@ -1,6 +1,9 @@
 1.1 Basic
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+W3C School link: http://www.w3schools.com/
+
+
 Use html5:
 
 	<!DOCTYPE html>
@@ -46,40 +49,79 @@ Basic structure:
 	  <script src="/path/to/js"></script>
 	</head>
 	<body>
-	  <!-- Comment Here -->
-	  <p></p>
 
-	  <h1></h1>
+	  <!-- Comment Here -->
+
+	  <p>I'm paragraph</p>
+
+	  <h1>I'm so BiG!</h1>
 	  <h2></h2>
-	  <h6></h6>
+	  <h3></h3>
+	  <h4></h4>
+	  <h5></h5>
+	  <h6>I'm so small!</h6>
 
 	  <ul>
-	  	<li></li>
-	  	<li></li>
-	  	<li></li>
+	  	<li>list 1</li>
+	  	<li>list 2</li>
+	  	<li>list 3</li>
 	  </ul>
 
 	  <ol>
-	  	<li></li>
-	  	<li></li>
-	  	<li></li>
+	  	<li>list 1</li>
+	  	<li>list 2</li>
+	  	<li>list 3</li>
 	  </ol>
 
 	  <table>
 	  	<tr>
 	  		<td></td>
+			<td></td>
+			<td></td>
 	  	</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
 	  </table>
 
-	  <form action="" method="GET">
+	  <form action="action_page.php" method="post">
+	    name:<br>
+	    <input type="text" name="name"><br>
 
+	    password:<br>
+	    <input type="password" name="password"><br>
+
+	    email:<br>
+	    <input type="email" name="email">
+
+	    age:<br>
+	    <input type="number" name="age" min="1" max="100">
+
+	    <input type="radio" name="gender" value="male" checked> Male<br>
+	    <input type="radio" name="gender" value="female"> Female<br>
+	    <input type="radio" name="gender" value="other"> Other<br>
+
+	    <input type="checkbox" name="vehicle" value="car"> Car<br>
+	    <input type="chechbox" name="vehicle" value="bike"> Bike<br>
+
+	    <textarea name="description" cols="30" rows="10"></textarea>
+
+	    <button type="button" onclick="alert('Hello World!')">
+	      Click Me!
+	    </button>
+
+	    <input type="hidden" name="ok" value="yes">
+	    <input type="submit" value="提交">
 	  </form>
 
-	  <form action="" method="POST">
+	  <img src="/path/to/images" alt="If something bad happend, you can see
+	  me">
 
-	  </form>
-
-	  <img src="" alt="">
+	  <script>
+	    // embeded javascript
+	  </script>
 
 	</body>
 	</html>

@@ -1,6 +1,40 @@
 1.1 Basic
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Use html5:
+
+	<!DOCTYPE html>
+
+Basic structure:
+
+	<html lang="en">
+	  <head>
+
+	  </head>
+	  <body>
+
+	  </body>
+	</html>
+
+head used to include extern file and set page title.
+body used to show page content.
+
+Set encoding:
+
+	<meta charset="UTF-8">
+
+This is html comment:
+
+	<!-- Hi, I'm comment! -->
+
+Include extern css file:
+
+	<link rel="stylesheet" href="/path/to/css">
+
+Include extern javascript file:
+
+	<script src="/path/to/js"></script>
+
 Basic structure:
 
 	<!DOCTYPE html>
@@ -8,12 +42,44 @@ Basic structure:
 	<head>
 	  <meta charset="UTF-8">
 	  <title>This is title</title>
+	  <link rel="stylesheet" href="/path/to/css">
+	  <script src="/path/to/js"></script>
 	</head>
 	<body>
 	  <!-- Comment Here -->
+	  <p></p>
+
+	  <h1></h1>
+	  <h2></h2>
+	  <h6></h6>
+
+	  <ul>
+	  	<li></li>
+	  	<li></li>
+	  	<li></li>
+	  </ul>
+
+	  <ol>
+	  	<li></li>
+	  	<li></li>
+	  	<li></li>
+	  </ol>
+
+	  <table>
+	  	<tr>
+	  		<td></td>
+	  	</tr>
+	  </table>
+
+	  <form action="" method="GET">
+
+	  </form>
+
+	  <form action="" method="POST">
+
+	  </form>
+
+	  <img src="" alt="">
+
 	</body>
 	</html>
-
-
-	<link rel="stylesheet" href="path/to/css">
-

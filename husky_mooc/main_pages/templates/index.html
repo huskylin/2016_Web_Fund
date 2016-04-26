@@ -6,22 +6,13 @@
   <link rel="stylesheet" href="/static/stylesheets/index.css">
 </head>
 <body>
-  <h1>Profile</h1>
-  <h2>Here have {{ people | length }} people</h2>
-  {% for person in people reversed %}
-    <h1>{{ forloop.counter }}</h1>
-    <ul>
-      <li>{{ person.name }}</li>
-      <li>{{ person.age }}</li>
-      <li>{{ person.horoscope }}</li>
-      {% if person.is_handsome %}
-        <li>This guy is so handsome!</li>
-      {% else %}
-        <li>This guy sucks!</li>
-      {% endif %}
-    </ul>
-  {% empty %}
-  <p>There's no person profile here!!</p>
-  {% endfor %}
+  {% if request.user.is_authenticated %}
+    <h1>Hello! {{ request.user }}</h1>
+    <a href="/accounts/profile">See your profile</a><br />
+    <a href="/accounts/signout">sign out</a>
+  {% else %}
+    <a href="/accounts/signup">Sign up</a><br />
+    <a href="/accounts/signin">Sign in</a>
+  {% endif %}
 </body>
 </html>

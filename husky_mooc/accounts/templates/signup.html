@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign up</title>
+</head>
+<body>
+  <a href="/index">Home Page</a>
+
+  <form action="" method="post">
+    {% csrf_token %}
+    <label for="username">username: </label>
+    <input type="text" name="username" /><br />
+
+    <label for="password">password: </label>
+    <input type="password" name="password" /><br />
+
+    <label for="email">email: </label>
+    <input type="email" name="email" /><br />
+
+    <input type="submit" value="sign up" />
+
+  </form>
+
+  <a href="/accounts/signin">Have accounts? login!!</a>
+</body>
+</html>

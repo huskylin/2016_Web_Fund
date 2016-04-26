@@ -16,11 +16,14 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from main_pages.views import index
-from login_system.views import signup
+from accounts.views import signup, signin, signout, profile
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', index),
     url(r'^index/$', index),
-    url(r'^signup/$', signup),
+    url(r'^accounts/signup/$', signup),
+    url(r'^accounts/signin/$', signin),
+    url(r'^accounts/signout/$', signout),
+    url(r'^accounts/profile/$', profile),
 ]

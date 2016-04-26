@@ -1,5 +1,5 @@
 from django.contrib import admin
-from login_system.models import User, Post
+from accounts.models import User, Post
 
 
 class UserAdmin(admin.ModelAdmin):

@@ -17,6 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from main_pages.views import index
 from accounts.views import signup, signin, signout, profile
+from learn.views import slide
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -26,4 +27,5 @@ urlpatterns = [
     url(r'^accounts/signin/$', signin),
     url(r'^accounts/signout/$', signout),
     url(r'^accounts/profile/$', profile),
+    url(r'^learn/slide/$', slide),
 ]

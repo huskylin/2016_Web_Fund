@@ -4,3 +4,4 @@ __pycache__
 bower_components/
 .DS_Store
 node_modules/
+dist/

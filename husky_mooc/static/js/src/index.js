@@ -15,19 +15,22 @@ function loginFail(errorMessage) {
 	};
 }
 
+// Reducers
 const initialState = { errorMessage: '' };
 
-// Reducers
 function loginApp(state = initialState, action = {}) {
 	switch (action.type) {
 		case LOGIN_FAIL:
 			return Object.assign({}, state, {
-				errorMessage: state.errorMessage
+				errorMessage: action.errorMessage
 			});
 		default:
 			return state;
 	}
 }
+
+// Store
+let store = createStore(loginApp);
 
 // Container
 class App extends Component {
@@ -61,24 +64,38 @@ class App extends Component {
 		let username = usernameNode.value;
 		let password = passwordNode.value;
 
-		// ajax request
-		fetch('/post', {
-			method: 'POST',
-			body: JSON.stringfy({
-				username,
-				password
-			})
+		console.log(username, password);
+
+		// ajax request to login.
+		//
+		// If login successfully will get this format:
+		// {
+		//	 authenticated: true,
+		//   redirect: '/'
+		// }
+		//
+		// If login failed will get this format data:
+		// {
+		//   authenticated: false,
+		//   errorMessage: 'Wrong password'
+		// }
+		fetch('http://127.0.0.1:3000/login/2', {
+			method: 'GET',
+			// body: JSON.stringify({
+				// username,
+				// password
+			// })
 		})
-			.then(response => repsonse.json())
-			.then((content) => {
-				if (!content) {
-					// show error message.
-					this.props.actions.loginFail(content);
+			.then(response => response.json())
+			.then(response => {
+				if (response.authenticated) {
+					// login successfully and redirect.
+					window.location.href = response.redirect;
+				} else {
+					// Login failed and show error message.
+					this.props.actions.loginFail(response.errorMessage);
 					// clean password field.
 					passwordNode.value = '';
-				} else {
-					// login success.
-					window.redirect('/');
 				}
 			});
 	}
@@ -93,20 +110,16 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators({
-			login
+			loginFail
 		}, dispatch)
 	};
 }
 
-connect(mapStateToProps, mapDispatchToProps)(App);
-
-let store = createStore(loginApp);
-
-let appElement = document.getElementById('app');
+App = connect(mapStateToProps, mapDispatchToProps)(App);
 
 render(
 	<Provider store={store}>
 		<App />
 	</Provider>,
-	appElement
+	document.getElementById('app')
 );

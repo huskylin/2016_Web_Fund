@@ -6,18 +6,8 @@
 </head>
 <body>
   <a href="/index">Home Page</a>
-  <form action="" method="post">
-    {% csrf_token %}
-    
-    <label for="username">username: </label>
-    <input type="text" name="username" /><br />
-
-    <label for="password">password: </label>
-    <input type="password" name="password" /><br />
-
-    <input type="submit" value="Sign in" />
-  </form>
-
-  <a href="/accounts/signup">No accounts? register one!!</a>
+	<div id="app"></div>
+	<a href="/accounts/signup">No accounts? register one!!</a>
+	<script src="/static/js/dist/bundle.js"></script>
 </body>
 </html>

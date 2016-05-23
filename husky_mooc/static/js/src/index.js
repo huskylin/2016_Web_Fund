@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
 import { render } from 'react-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
-class App extends Component {
-	render() {
-		return (
-			<div>
-				FUCK
-			</div>
-		);
-	}
-}
+import App from './containers/App';
+import loginApp from './reducers';
+
+let store = createStore(loginApp);
+
+let appElement = document.getElementById('app');
 
 render(
-	<App />,
-	document.getElementById('root')
+	<Provider store={store}>
+		<App />
+	</Provider>,
+	appElement
 );

@@ -36,13 +36,13 @@ let store = createStore(loginApp);
 class App extends Component {
 	constructor(props) {
 		super(props);
-		this.handleClick = this.handleClick.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
 	render() {
 		const { actions, errorMessage } = this.props;
 		return (
-			<div>
+			<form className="loginForm" onSubmit={this.handleSubmit}>
 				<h1>{errorMessage}</h1>
 				<input
 					type="text"
@@ -52,12 +52,13 @@ class App extends Component {
 					type="password"
 					ref="password"
 				/>
-				<button onClick={this.handleClick}>Login</button>
-			</div>
+				<button type="submit">Login</button>
+			</form>
 		);
 	}
 
-	handleClick(e) {
+	handleSubmit(e) {
+		e.preventDefault();
 		let usernameNode = this.refs.username;
 		let passwordNode = this.refs.password;
 
@@ -79,7 +80,7 @@ class App extends Component {
 		//   authenticated: false,
 		//   errorMessage: 'Wrong password'
 		// }
-		fetch('http://127.0.0.1:3000/login/2', {
+		fetch('http://127.0.0.1:3000/login/1', {
 			method: 'GET',
 			// method: 'POST',
 			// body: JSON.stringify({

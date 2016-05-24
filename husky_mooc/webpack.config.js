@@ -1,9 +1,10 @@
-const path = require('path');
-
 module.exports = {
-	entry: path.join(__dirname, '/static/js/src/index.js'),
+	entry: {
+		loginForm: './static/js/src/loginForm.js'
+	},
   output: {
-		filename: path.join(__dirname, '/static/js/dist/bundle.js')
+		path: './static/js/dist/',
+		filename: '[name].js'
   },
   module: {
     loaders: [
@@ -17,6 +18,6 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.json', '.coffee']
+    extensions: ['', '.js', '.json']
   }
 };

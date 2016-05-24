@@ -81,6 +81,7 @@ class App extends Component {
 		// }
 		fetch('http://127.0.0.1:3000/login/2', {
 			method: 'GET',
+			// method: 'POST',
 			// body: JSON.stringify({
 				// username,
 				// password
@@ -121,5 +122,5 @@ render(
 	<Provider store={store}>
 		<App />
 	</Provider>,
-	document.getElementById('app')
+	document.getElementById('loginForm')
 );

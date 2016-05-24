@@ -6,22 +6,8 @@
 </head>
 <body>
   <a href="/index">Home Page</a>
-
-  <form action="" method="post">
-    {% csrf_token %}
-    <label for="username">username: </label>
-    <input type="text" name="username" /><br />
-
-    <label for="password">password: </label>
-    <input type="password" name="password" /><br />
-
-    <label for="email">email: </label>
-    <input type="email" name="email" /><br />
-
-    <input type="submit" value="sign up" />
-
-  </form>
-
+	<div id="registerForm"></div>
   <a href="/accounts/signin">Have accounts? login!!</a>
+	<script src="/static/js/dist/registerForm.js"></script>
 </body>
 </html>

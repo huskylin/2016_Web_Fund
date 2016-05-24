@@ -1,6 +1,7 @@
 module.exports = {
 	entry: {
-		loginForm: './static/js/src/loginForm.js'
+		loginForm: './static/js/src/loginForm.js',
+		registerForm: './static/js/src/registerForm.js'
 	},
   output: {
 		path: './static/js/dist/',

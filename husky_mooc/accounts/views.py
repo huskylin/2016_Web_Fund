@@ -8,6 +8,12 @@ from django.shortcuts import (
     HttpResponseRedirect,
 )
 
+def slide(request):
+    return render_to_response('slide.html', locals())
+    
+def index(request):
+    return render_to_response('index.html', locals())
+
 def signup(request):
     if request.method == 'POST':
         username = request.POST.get('username', '')

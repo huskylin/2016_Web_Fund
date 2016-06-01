@@ -5,9 +5,10 @@ class User(models.Model):
     username    = models.CharField(max_length=50)
     password    = models.CharField(max_length=50)
     nickname    = models.CharField(max_length=50)
-    age         = models.DecimalField(max_digits=100, decimal_places=0)
+    department  = models.CharField(max_length=50)
+    grade       = models.DecimalField(max_digits=4, decimal_places=0)
+    rank 		= models.DecimalField(max_digits=10, decimal_places=0)
     desciption  = models.CharField(max_length=100, blank=True)
-    is_handsome = models.BooleanField()
     date        = models.DateField(auto_now_add=True)
 
     def __str__(self):

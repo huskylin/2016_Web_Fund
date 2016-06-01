@@ -6,9 +6,9 @@ class SignupForm(forms.Form):
     password = forms.CharField(max_length=50, widget=forms.PasswordInput)
     email = forms.EmailField(max_length=50)
     nickname = forms.EmailField(max_length=50)
-    age = forms.DecimalField(max_digits=100, decimal_places=0)
+    department  = models.CharField(max_length=50)
+    grade       = models.DecimalField(max_digits=4, decimal_places=0)
     description = forms.CharField(max_length=50, required=False)
-    is_handsome = forms.BooleanField()
 
 
 class SigninForm(forms.Form):

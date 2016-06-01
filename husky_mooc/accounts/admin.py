@@ -3,11 +3,11 @@ from accounts.models import User, Post
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display  = ('username', 'age', 'is_handsome', 'date')
-    list_filter   = ('is_handsome',)
+    list_display  = ('username','grade','department','rank','date')
+    """list_filter   = ('is_handsome',)"""
     search_fields = ('username',)
-    fields        = ('username', 'nickname', 'age', 'is_handsome')
-    ordering      = ('-age', 'date')
+    fields        = ('username', 'nickname', '')
+    ordering      = ('date',)
 
 
 class PostAdmin(admin.ModelAdmin):

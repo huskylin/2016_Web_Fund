@@ -10,8 +10,8 @@ const LOGIN_FAIL = 'LOGIN_FAIL';
 // Action Creator
 function loginFail(errorMessage) {
   return {
-	type: LOGIN_FAIL,
-	errorMessage
+    type: LOGIN_FAIL,
+    errorMessage
   };
 }
 
@@ -20,12 +20,12 @@ const initialState = { errorMessage: '' };
 
 function loginApp(state = initialState, action = {}) {
   switch (action.type) {
-	case LOGIN_FAIL:
-	  return Object.assign({}, state, {
-		errorMessage: action.errorMessage
-	  });
-	default:
-	  return state;
+    case LOGIN_FAIL:
+      return Object.assign({}, state, {
+        errorMessage: action.errorMessage
+      });
+    default:
+      return state;
   }
 }
 
@@ -35,85 +35,85 @@ let store = createStore(loginApp);
 // Container
 class App extends Component {
   constructor(props) {
-	super(props);
-	this.handleSubmit = this.handleSubmit.bind(this);
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   render() {
-	const { actions, errorMessage } = this.props;
-	return (
-	  <form className="loginForm" onSubmit={this.handleSubmit}>
-		<h1>{errorMessage}</h1>
-		<input
-type="text"
-ref="username"
-/>
-		<input
-type="password"
-ref="password"
-/>
-		<button type="submit">Login</button>
-	  </form>
-	);
+    const { actions, errorMessage } = this.props;
+    return (
+      <form className="loginForm" onSubmit={this.handleSubmit}>
+        <h1>{errorMessage}</h1>
+        <input
+            type="text"
+            ref="username"
+        />
+        <input
+            type="password"
+            ref="password"
+        />
+        <button type="submit">Login</button>
+      </form>
+    );
   }
 
   handleSubmit(e) {
-	e.preventDefault();
-	let usernameNode = this.refs.username;
-	let passwordNode = this.refs.password;
+    e.preventDefault();
+    let usernameNode = this.refs.username;
+    let passwordNode = this.refs.password;
 
-	let username = usernameNode.value;
-	let password = passwordNode.value;
+    let username = usernameNode.value;
+    let password = passwordNode.value;
 
-	console.log(username, password);
+    console.log(username, password);
 
-	// ajax request to login.
-	//
-	// If login successfully will get this format:
-	// {
-	//	 authenticated: true,
-	//   redirect: '/'
-	// }
-	//
-	// If login failed will get this format data:
-	// {
-	//   authenticated: false,
-	//   errorMessage: 'Wrong password'
-	// }
-	fetch('http://127.0.0.1:3000/login/1', {
-	  method: 'GET',
-	  // method: 'POST',
-	  // body: JSON.stringify({
-	  // username,
-	  // password
-	  // })
-	})
-	  .then(response => response.json())
-	  .then(response => {
-		if (response.authenticated) {
-		  // login successfully and redirect.
-			window.location.href = response.redirect;
-		} else {
-		  // Login failed and show error message.
-			this.props.actions.loginFail(response.errorMessage);
-		  // clean password field.
-			passwordNode.value = '';
-		}
-	  });
+    // ajax request to login.
+    //
+    // If login successfully will get this format:
+    // {
+    //   authenticated: true,
+    //   redirect: '/'
+    // }
+    //
+    // If login failed will get this format data:
+    // {
+    //   authenticated: false,
+    //   errorMessage: 'Wrong password'
+    // }
+    fetch('http://127.0.0.1:3000/login/1', {
+      method: 'GET',
+      // method: 'POST',
+      // body: JSON.stringify({
+      // username,
+      // password
+      // })
+    })
+      .then(response => response.json())
+      .then(response => {
+        if (response.authenticated) {
+          // login successfully and redirect.
+            window.location.href = response.redirect;
+        } else {
+          // Login failed and show error message.
+            this.props.actions.loginFail(response.errorMessage);
+          // clean password field.
+            passwordNode.value = '';
+        }
+      });
   }
 }
 
 function mapStateToProps(state) {
   return {
-	errorMessage: state.errorMessage
+    errorMessage: state.errorMessage
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-	actions: bindActionCreators({
-	  loginFail
-	}, dispatch)
+    actions: bindActionCreators({
+      loginFail
+    }, dispatch)
   };
 }
 
@@ -121,7 +121,7 @@ App = connect(mapStateToProps, mapDispatchToProps)(App);
 
 render(
   <Provider store={store}>
-	<App />
+    <App />
   </Provider>,
   document.getElementById('loginForm')
 );

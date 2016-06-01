@@ -87,7 +87,7 @@ class App extends Component {
     })
       .then((response) => response.json())
       .then((response) => {
-        if (response.authenticated) {
+        if (response.success) {
           window.location.href = response.redirect;
         } else {
           passwordNode.value = '';

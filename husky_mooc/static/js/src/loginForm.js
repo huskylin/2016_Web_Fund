@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { render } from 'react-dom';
-import { createStore, bindActionCreators } from 'redux';
 import { Provider, connect } from 'react-redux';
+import { createStore, bindActionCreators } from 'redux';
 import 'whatwg-fetch';
 
 // Actions
@@ -11,13 +11,13 @@ const LOGIN_FAIL = 'LOGIN_FAIL';
 function loginFail(errorMessage) {
   return {
     type: LOGIN_FAIL,
-    errorMessage
+    errorMessage: errorMessage
   };
 }
 
-// Reducers
 const initialState = { errorMessage: '' };
 
+// Reducer
 function loginApp(state = initialState, action = {}) {
   switch (action.type) {
     case LOGIN_FAIL:
@@ -32,7 +32,6 @@ function loginApp(state = initialState, action = {}) {
 // Store
 let store = createStore(loginApp);
 
-// Container
 class App extends Component {
   constructor(props) {
     super(props);
@@ -40,18 +39,16 @@ class App extends Component {
   }
 
   render() {
-    const { actions, errorMessage } = this.props;
+    const { errorMessage } = this.props;
     return (
-      <form className="loginForm" onSubmit={this.handleSubmit}>
+      <form
+          id="loginForm"
+          method="POST"
+          onSubmit={this.handleSubmit}
+      >
         <h1>{errorMessage}</h1>
-        <input
-            type="text"
-            ref="username"
-        />
-        <input
-            type="password"
-            ref="password"
-        />
+        User Name: <input type="text" ref="username" /><br/>
+        Password:  <input type="password" ref="password" /><br/>
         <button type="submit">Login</button>
       </form>
     );
@@ -59,49 +56,50 @@ class App extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let usernameNode = this.refs.username;
-    let passwordNode = this.refs.password;
+
+    const { loginFail } = this.props.actions;
+
+    const usernameNode = this.refs.username;
+    const passwordNode = this.refs.password;
 
     let username = usernameNode.value;
     let password = passwordNode.value;
 
-    console.log(username, password);
+    if (!username) {
+      passwordNode.value = '';
+      return loginFail('Please enter your username');
+    }
+    if (!password) {
+      return loginFail('Please enter your password.');
+    }
 
-    // ajax request to login.
-    //
-    // If login successfully will get this format:
-    // {
-    //   authenticated: true,
-    //   redirect: '/'
-    // }
-    //
-    // If login failed will get this format data:
-    // {
-    //   authenticated: false,
-    //   errorMessage: 'Wrong password'
-    // }
-    fetch('http://127.0.0.1:3000/login/1', {
-      method: 'GET',
-      // method: 'POST',
-      // body: JSON.stringify({
-      // username,
-      // password
-      // })
+    fetch('/login', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username,
+        password
+      })
     })
-      .then(response => response.json())
-      .then(response => {
+      .then((response) => response.json())
+      .then((response) => {
         if (response.authenticated) {
-          // login successfully and redirect.
-            window.location.href = response.redirect;
+          window.location.href = response.redirect;
         } else {
-          // Login failed and show error message.
-            this.props.actions.loginFail(response.errorMessage);
-          // clean password field.
-            passwordNode.value = '';
+          passwordNode.value = '';
+          loginFail(response.errorMessage);
         }
       });
   }
 }
+
+App.propTypes = {
+  errorMessage: PropTypes.string.isRequired
+};
 
 function mapStateToProps(state) {
   return {
@@ -123,5 +121,5 @@ render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('loginForm')
+  document.getElementById('loginApp')
 );

@@ -17,5 +17,4 @@ class PostAdmin(admin.ModelAdmin):
     ordering      = ('date',)
 
 
-admin.site.register(User, UserAdmin)
 admin.site.register(Post, PostAdmin)

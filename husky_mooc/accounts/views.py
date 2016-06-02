@@ -7,6 +7,7 @@ from django.shortcuts import (
     HttpResponse,
     HttpResponseRedirect,
 )
+from .models import Post
 
 def slide(request):
     return render_to_response('slide.html', locals())
@@ -56,6 +57,17 @@ def signout(request):
 def profile(request):
     return render_to_response('profile.html', locals())
 
+@login_required(login_url='/accounts/signup')
+def post(request):
+    if request.method == 'POST':
+        user    = request.user
+        content = request.POST.get('content', '')
+
+        new_post = Post(content=content, user=user)
+        new_post.save()
+        return HttpResponseRedirect('/post')
+
+    return render_to_response('post.html', locals(), RequestContext(request))
 """
 See this page
 http://dokelung-blog.logdown.com/posts/234437-django-notes-10-users-login-and-logout

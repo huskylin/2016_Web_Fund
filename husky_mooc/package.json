@@ -2,11 +2,10 @@
   "name": "husky_mooc",
   "version": "1.0.0",
   "description": "",
-  "main": "./static/js/src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --watch",
-		"compile": "webpack"
+    "compile": "webpack"
   },
   "author": "YogaPan",
   "license": "ISC",

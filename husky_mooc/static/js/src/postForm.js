@@ -71,7 +71,7 @@ class App extends Component {
       return postFail('你就是這麼沒內容的人 打多一點 廢物!');
     }
 
-    fetch('/post/', {
+    fetch('/post', {
       method: 'POST',
       credentials: 'same-origin',
       headers: {

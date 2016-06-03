@@ -34,12 +34,12 @@
               <nav>
                 <ul class="nav masthead-nav">
                   {% if request.user.is_authenticated %}
-                  <li><a class="active" href="/accounts/profile/">個人資料</a></li>
-                  <li><a href="/post/">發文</a></li>
-                  <li><a href="/accounts/signout/">登出</a></li>
+                  <li><a class="active" href="/accounts/profile">個人資料</a></li>
+                  <li><a href="/post">發文</a></li>
+                  <li><a href="/accounts/signout">登出</a></li>
                   {% else %}
-                  <li><a href="/accounts/signin/">登入</a></li>
-                  <li><a href="/accounts/signup/">註冊</a></li>
+                  <li><a href="/accounts/signin">登入</a></li>
+                  <li><a href="/accounts/signup">註冊</a></li>
                   {% endif %}
                 </ul>
               </nav>

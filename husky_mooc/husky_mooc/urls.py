@@ -17,13 +17,13 @@ from django.contrib import admin
 from accounts.views import signup, signin, signout, profile, slide, index, post
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^admin', admin.site.urls),
     url(r'^$', index),
-    url(r'^index/$', index),
-    url(r'^accounts/signup/$', signup),
-    url(r'^accounts/signin/$', signin),
-    url(r'^accounts/signout/$', signout),
-    url(r'^accounts/profile/$', profile),
-    url(r'^post/$', post),
-    url(r'^learn/slide/$', slide),
+    url(r'^index$', index),
+    url(r'^accounts/signup$', signup),
+    url(r'^accounts/signin$', signin),
+    url(r'^accounts/signout$', signout),
+    url(r'^accounts/profile$', profile),
+    url(r'^post$', post),
+    url(r'^learn/slide$', slide),
 ]

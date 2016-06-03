@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Page Title</title>
-</head>
-<body>
-<form method="post" action="">
-      {% csrf_token %}
-      Content: <input type="text" name="content" /><br/>
-      <input type="submit" value="Post" />
-    </form>
-
-</body>
+  <head>
+    <title>Page Title</title>
+  </head>
+  <body>
+    <div id="postApp"></div>
+    <script src="/static/js/dist/postForm.js"></script>
+  </body>
 </html>

@@ -7,11 +7,13 @@ from django.shortcuts import (
     HttpResponse,
     HttpResponseRedirect,
 )
+from django.http import JsonResponse
+import json
 from .models import Post
 
 def slide(request):
     return render_to_response('slide.html', locals())
-    
+
 def index(request):
     return render_to_response('index.html', locals())
 
@@ -60,12 +62,13 @@ def profile(request):
 @login_required(login_url='/accounts/signup')
 def post(request):
     if request.method == 'POST':
+        ajax_data    = json.loads(str(request.body.decode("utf-8")))
         user    = request.user
-        content = request.POST.get('content', '')
+        content = ajax_data['content']
 
         new_post = Post(content=content, user=user)
         new_post.save()
-        return HttpResponseRedirect('/post')
+        return JsonResponse({'success': True})
 
     return render_to_response('post.html', locals(), RequestContext(request))
 """

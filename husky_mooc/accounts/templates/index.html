@@ -1,18 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Husky Porn</title>
-  <link rel="stylesheet" href="/static/css/index.css">
-</head>
-<body>
-  {% if request.user.is_authenticated %}
-    <h1>Hello! {{ request.user }}</h1>
-    <a href="/accounts/profile">See your profile</a><br />
-    <a href="/accounts/signout">sign out</a>
-  {% else %}
-    <a href="/accounts/signup">Sign up</a><br />
-    <a href="/accounts/signin">Sign in</a>
-  {% endif %}
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Husky_mooc</title>
+    <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <link href="/static/css/homecover.css" rel="stylesheet">
+
+
+  </head>
+
+  <body>
+
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <div class="masthead clearfix">
+
+            <div class="inner">
+              {% if request.user.is_authenticated %}
+              <h3 class="masthead-brand">{{ request.user }}</h3>
+              {% endif %}
+              <nav>
+                <ul class="nav masthead-nav">
+                  {% if request.user.is_authenticated %}
+                  <li><a class="active" href="/accounts/profile/">個人資料</a></li>
+                  <li><a href="/post/">發文</a></li>
+                  <li><a href="/accounts/signout/">登出</a></li>
+                  {% else %}
+                  <li><a href="/accounts/signin/">登入</a></li>
+                  <li><a href="/accounts/signup/">註冊</a></li>
+                  {% endif %}
+                </ul>
+              </nav>
+              <nav>
+                  <h1 class="husky">學習的平台</h1>
+                  <h2 class="husky2"><a href="#" class="btn btn-lg btn-default">Learn more</a></h2>
+              </nav>
+
+                 <nav class="husky2">
+                  <h1 class="word">Husky is porn</h1>
+
+
+                  <h2><p class"lead">Second:</p>husky like play some trash games</h2>
+                  <hr class="featurette-divider">
+
+                </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

@@ -17,7 +17,7 @@ a:hover {
 
 html,
 body {
-  background-image:url("http://hk.best-wallpaper.net/wallpaper/1920x1080/1310/Taiwan-landscape-mountain-top-wood-stairs-sun_1920x1080.jpg");
+  background-image:url("/static/images/sun.jpg");
   background-size: 100%;
 }
 body {
@@ -45,15 +45,15 @@ body {
 }
 
 .husky {
-position:relative; 
-  top:100px; 
-   
+position:relative;
+  top:100px;
+
 }
 
 .husky2 {
-position:relative; 
+position:relative;
   top:100px;
-  right:20px;  
+  right:20px;
 }
 
 /* Padding for spacing */
@@ -63,7 +63,7 @@ position:relative;
 
 .word{
   font-family:cursive,monospace;
-  
+
 }
 /*
  * Header

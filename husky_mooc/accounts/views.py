@@ -38,7 +38,7 @@ def signup(request):
 
 def signin(request):
     if request.user.is_authenticated():
-        return HttpResponseRedirect('/index')
+        return HttpResponseRedirect('/index/')
 
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
@@ -47,13 +47,13 @@ def signin(request):
 
     if user is not None and user.is_active:
         auth.login(request, user)
-        return HttpResponseRedirect('/index')
+        return HttpResponseRedirect('/index/')
 
     return render_to_response('signin.html', locals(), RequestContext(request))
 
 def signout(request):
     auth.logout(request)
-    return HttpResponseRedirect('/index')
+    return HttpResponseRedirect('/index/')
 
 @login_required(login_url='/accounts/signup')
 def profile(request):

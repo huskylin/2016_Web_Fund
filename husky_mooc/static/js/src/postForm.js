@@ -5,12 +5,19 @@ import { createStore, bindActionCreators } from 'redux';
 import 'whatwg-fetch';
 
 const POST_FAIL = 'POST_FAIL';
+const POST_SUCCESS = 'POST_SUCCESS';
 
 function postFail(errorMessage) {
   return {
     type: POST_FAIL,
     errorMessage
   };
+}
+
+function postSuccess() {
+	return {
+		type: POST_SUCCESS
+	};
 }
 
 const initialState = { errorMessage: '' };
@@ -20,7 +27,11 @@ function postApp(state = initialState, action = {}) {
     case 'POST_FAIL':
       return Object.assign({}, state, {
         errorMessage: action.errorMessage
-      });
+			});
+		case 'POST_SUCCESS':
+			return Object.assign({}, state, {
+				errorMessage: ''
+			});
     default:
       return state;
   }
@@ -50,7 +61,7 @@ class App extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    const { postFail } = this.props.actions;
+    const { postFail, postSuccess } = this.props.actions;
 
     const contentNode = this.refs.content;
     const content     = contentNode.value;
@@ -74,7 +85,8 @@ class App extends Component {
       .then((response) => response.json())
       .then((response) => {
         if (response.success) {
-          // Do nothing
+					contentNode.value = '';
+					return postSuccess();
         } else {
           return postFail(response.errorMessage);
         }
@@ -95,7 +107,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      postFail
+			postFail,
+			postSuccess
     }, dispatch)
   };
 }

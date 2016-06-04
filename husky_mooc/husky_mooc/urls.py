@@ -25,5 +25,4 @@ urlpatterns = [
     url(r'^accounts/signout$', signout),
     url(r'^accounts/profile$', profile),
     url(r'^post$', post),
-    url(r'^learn/slide$', slide),
 ]

@@ -19,15 +19,16 @@ def index(request):
 
 def signup(request):
     if request.method == 'POST':
-        username = request.POST.get('username', '')
-        password = request.POST.get('password', '')
-        email    = request.POST.get('email', '')
+        ajax_data = json.loads(str(request.body.decode("utf-8")))
+        username  = ajax_data['username']
+        password  = ajax_data['password']
+        email     = ajax_data['email']
 
         if User.objects.filter(username=username).exists():
-            return HttpResponse('User exists!!')
+            return JsonResponse({'success': False, 'errorMessage': 'User exists!'})
 
         if User.objects.filter(email=email).exists():
-            return HttpResponse('Email has been registered!')
+            return JsonResponse({'success': False, 'errorMessage': 'Email has been registered!'})
 
         new_user = User(username=username, email=email)
         new_user.set_password(password)
@@ -38,16 +39,16 @@ def signup(request):
 
 def signin(request):
     if request.user.is_authenticated():
-        return HttpResponseRedirect('/index')
-
-    username = request.POST.get('username', '')
-    password = request.POST.get('password', '')
+        return JsonResponse({'success': True})
+        ajax_data = json.loads(str(request.body.decode("utf-8")))
+        username  = ajax_data['username']
+        password  = ajax_data['password']
 
     user = auth.authenticate(username=username, password=password)
 
     if user is not None and user.is_active:
         auth.login(request, user)
-        return HttpResponseRedirect('/index')
+        return JsonResponse({'success': True})
 
     return render_to_response('signin.html', locals(), RequestContext(request))
 
@@ -74,5 +75,5 @@ def post(request):
 """
 See this page
 http://dokelung-blog.logdown.com/posts/234437-django-notes-10-users-login-and-logout
-http://dokelung-blog.logdown.com/posts/234896-django-notes-11-permission-and-registration
+http://dokelung-blog.logdown.com/postsa/234896-django-notes-11-permission-and-registration
 """

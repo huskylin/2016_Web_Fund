@@ -73,7 +73,7 @@ class App extends Component {
       return loginFail('Please enter your password.');
     }
 
-    fetch('/login', {
+    fetch('/accounts/signin', {
       method: 'POST',
       credentials: 'same-origin',
       headers: {
@@ -121,5 +121,5 @@ render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('loginApp')
+  document.getElementById('signinApp')
 );

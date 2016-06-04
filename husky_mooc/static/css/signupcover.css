@@ -1,0 +1,54 @@
+/*Begin*/
+
+a:link,
+a:hover {
+	color:#000000; 
+	text-decoration:none;
+}
+
+.color{
+  color:black;
+}
+
+body {
+  background-image:url("/static/images/sun.jpg");
+  background-size: 100%;
+  text-align: center;
+}
+
+body {  
+  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
+
+.form {
+  position: relative;
+  top:-10px; 
+  padding-top:250px; 
+  background-color:rgba(211,211,211,0.6); 
+}
+
+.signup-text {
+  position: relative;
+  left:155px;
+  top:10px; 
+  font-size: 16px;
+  color:#87ceeb;
+}
+.signin-text {
+  position: relative;
+  left:300px;
+  bottom:20px;
+}
+
+.home-text {
+  position: relative;
+  right:500px;
+  top:10px; 
+  font-size: 20px;
+  color: #87ceeb;
+}
+
+.form-postion {
+  position: relative;
+  bottom: 100px;
+}

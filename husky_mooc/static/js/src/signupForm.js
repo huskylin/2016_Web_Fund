@@ -91,7 +91,7 @@ class App extends Component {
       return registerFail('Please Fill in your Email');
     }
 
-    fetch('/register', {
+    fetch('/signup', {
       method: 'POST',
       credentials: 'same-origin',
       headers: {
@@ -141,5 +141,5 @@ render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('registerApp')
+  document.getElementById('signupApp')
 );

@@ -19,9 +19,10 @@ def index(request):
 
 def signup(request):
     if request.method == 'POST':
-        username = request.POST.get('username', '')
-        password = request.POST.get('password', '')
-        email    = request.POST.get('email', '')
+        ajax_data = json.loads(str(request.body.decode("utf-8")))
+        username  = ajax_data['username']
+        password  = ajax_data['password']
+        email     = ajax_data['email']
 
         if User.objects.filter(username=username).exists():
             return HttpResponse('User exists!!')

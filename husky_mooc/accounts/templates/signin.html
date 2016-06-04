@@ -3,11 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <title>Sign In</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <link href="/static/css/Signincover.css" rel="stylesheet">
 </head>
+
 <body>
-  <a href="/index">Home Page</a>
-  <div id="signinApp"></div>
-  <a href="/accounts/signup">No accounts? register one!!</a>
-  <script src="/static/js/dist/signinForm.js"></script>
+  <div>
+    <a class="home-text" href="/index">Husky_mooc</a>
+    <a class="signup-text2">Sign in</a>
+    <nav class="signin-text2">
+      <button type="button" class="btn btn-primary" ><a class="color" href="/accounts/signup">Sign up</a></button> 
+    </nav>
+  </div>
+  <div class="form">
+    <div class="form-postion" id="signinApp"></div>
+      <a class="bottom-text" href="/accounts/signup">No accounts? register one!!</a>
+      <script src="/static/js/dist/signinForm.js"></script>
+  </div>
 </body>
 </html>

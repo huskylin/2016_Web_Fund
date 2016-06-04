@@ -27,18 +27,18 @@ body {
   background-color:rgba(211,211,211,0.6); 
 }
 
-.signup-text {
+.signup-text2 {
   position: relative;
-  left:245px;
+  left:155px;
   top:10px; 
   font-size: 16px;
   text-decoration:underline;
   color:#87ceeb;
 }
 
-.signin-text {
+.signin-text2 {
   position: relative;
-  left:220px;
+  left:300px;
   bottom:20px;
 }
 

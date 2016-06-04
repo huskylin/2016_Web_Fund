@@ -45,10 +45,9 @@ body {
 }
 
 .husky {
-position:relative;
+  position:relative;
   top:100px;
-  left:25px;  
-
+  right:40px;  
 }
 
 .husky2 {
@@ -70,6 +69,7 @@ position:relative;
  * Header
  */
 .masthead-brand {
+  color: #87ceeb;
   margin-top: 10px;
   margin-bottom: 10px;
 }

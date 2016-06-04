@@ -41,15 +41,20 @@ class App extends Component {
   render() {
     const { errorMessage } = this.props;
     return (
-      <form
+      <form role="form"
           id="loginForm"
           method="POST"
           onSubmit={this.handleSubmit}
       >
-        <h1>{errorMessage}</h1>
-        User Name: <input type="text" ref="username" /><br/>
-        Password:  <input type="password" ref="password" /><br/>
-        <button type="submit">Login</button>
+        <h1>Sign in</h1>
+        <h2>{errorMessage}</h2>
+        <div className="form-gruop" >
+          <input className="from-control" id="exampleInputEmail1" placeholder="User Name" type="text" ref="username" /><br/>
+        </div>
+        <div className="form-gruop" >
+          <input className="from-control" id="exampleInputEmail1" placeholder="Password" type="password" ref="password" /><br/>
+        </div>
+        <button className="btn btn-primary" type="submit">Login</button>
       </form>
     );
   }

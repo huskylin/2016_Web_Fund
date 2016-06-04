@@ -29,26 +29,28 @@ def signup(request):
 
         if User.objects.filter(email=email).exists():
             return JsonResponse({'success': False, 'errorMessage': 'Email has been registered!'})
-
+        
         new_user = User(username=username, email=email)
         new_user.set_password(password)
         new_user.save()
-        return HttpResponseRedirect('/index')
+        return JsonResponse({'success': True, 'redirect': '/index'})
 
     return render_to_response('signup.html', locals(), RequestContext(request))
 
 def signin(request):
     if request.user.is_authenticated():
-        return JsonResponse({'success': True})
+        return HttpResponseRedirect('/index')
+    
+    if request.method == 'POST':  
         ajax_data = json.loads(str(request.body.decode("utf-8")))
         username  = ajax_data['username']
         password  = ajax_data['password']
-
-    user = auth.authenticate(username=username, password=password)
-
-    if user is not None and user.is_active:
-        auth.login(request, user)
-        return JsonResponse({'success': True})
+        user = auth.authenticate(username=username, password=password)
+        if user is not None and user.is_active:
+            auth.login(request, user)
+            return JsonResponse({'success': True, 'redirect': '/index'})
+        else:
+            return JsonResponse({'success': False, 'errorMessage': 'login fail!'})
 
     return render_to_response('signin.html', locals(), RequestContext(request))
 

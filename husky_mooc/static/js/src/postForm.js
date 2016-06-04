@@ -6,6 +6,7 @@ import 'whatwg-fetch';
 
 const POST_FAIL = 'POST_FAIL';
 const POST_SUCCESS = 'POST_SUCCESS';
+const POST_LOAD = 'POST_LOAD';
 
 function postFail(errorMessage) {
   return {
@@ -15,23 +16,37 @@ function postFail(errorMessage) {
 }
 
 function postSuccess() {
-	return {
-		type: POST_SUCCESS
-	};
+  return {
+    type: POST_SUCCESS
+  };
 }
 
-const initialState = { errorMessage: '' };
+function postLoad(posts) {
+  return {
+    type: POST_LOAD,
+    posts
+  };
+}
+
+const initialState = {
+  errorMessage: '',
+  posts: []
+};
 
 function postApp(state = initialState, action = {}) {
-  switch(action.type) {
+  switch (action.type) {
     case 'POST_FAIL':
       return Object.assign({}, state, {
         errorMessage: action.errorMessage
-			});
-		case 'POST_SUCCESS':
-			return Object.assign({}, state, {
-				errorMessage: ''
-			});
+      });
+    case 'POST_SUCCESS':
+      return Object.assign({}, state, {
+        errorMessage: ''
+      });
+    case 'POST_LOAD':
+      return Object.assign({}, state, {
+        posts: action.posts
+      });
     default:
       return state;
   }
@@ -39,10 +54,94 @@ function postApp(state = initialState, action = {}) {
 
 let store = createStore(postApp);
 
+function _loadPost() {
+  const { postFail, postLoad } = this.props.actions;
+
+  fetch('/post', {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
+      'accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      // NOTE: This part is not sure.
+      start: 1,
+      end: 10
+    })
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      if (response.success) {
+        return postLoad(response.posts);
+      } else {
+        return postFail(response.errorMessage);
+      }
+    });
+}
+
+class PostItem extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const { content } = this.props.content;
+    return (
+      <p>{content}</p>
+    );
+  }
+}
+
+PostItem.propTypes = {
+  content: PropTypes.string.isRequired
+};
+
+class PostList extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+    this._loadPost = _loadPost.bind(this);
+  }
+
+  render() {
+    const { posts, postLoad } = this.props;
+
+    const postElements = posts.map((post) => {
+      <li key={post.id}>
+        <PostItem content={post.content} />
+      </li>
+    });
+    return (
+      <div>
+        <ul>{postElements}</ul>
+        <button onClick={this.handleClick}>Load</button>
+      </div>
+    );
+  }
+
+  componentDidMount() {
+    this._loadPost();
+  }
+
+  handleClick(e) {
+    this._loadPost();
+  }
+}
+
+PostList.propTypes = {
+  posts: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    content: PropTypes.string.isRequired
+  }).isRequired).isRequired
+
+};
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this._loadPost    = _loadPost.bind(this);
   }
 
   render() {
@@ -54,6 +153,7 @@ class App extends Component {
           Content: <input type="text" ref="content" /><br/>
           <button type="submit">Send Your Post</button>
         </form>
+        <PostList posts={this.props.posts} actions={this.props.actions}/>
       </div>
     );
   }
@@ -85,8 +185,9 @@ class App extends Component {
       .then((response) => response.json())
       .then((response) => {
         if (response.success) {
-					contentNode.value = '';
-					return postSuccess();
+          contentNode.value = '';
+          postSuccess();
+          return this._loadPost();
         } else {
           return postFail(response.errorMessage);
         }
@@ -95,20 +196,26 @@ class App extends Component {
 }
 
 App.PropTypes = {
-  errorMessage: PropTypes.string.isRequired
+  errorMessage: PropTypes.string.isRequired,
+  posts: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    content: PropTypes.string.isRequired
+  }).isRequired).isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    errorMessage: state.errorMessage
+    errorMessage: state.errorMessage,
+    posts: state.posts
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-			postFail,
-			postSuccess
+      postFail,
+      postSuccess,
+      postLoad
     }, dispatch)
   };
 }

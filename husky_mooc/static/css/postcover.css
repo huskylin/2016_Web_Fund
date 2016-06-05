@@ -1,8 +1,78 @@
 /*begin*/
 
-.iframe {
-  border:1px solid #CCC;
-  border-width:1px; 
-  margin-bottom:5px; 
-  max-width: 100%;
+a:hover {
+	color:white;  
 }
+
+body {
+  background-color:#2f4f4f; 
+}
+
+
+
+.husky_mooc-text {
+	padding-left:1000px;
+	padding-bottom:50px; 
+	background-color:#008080;  
+}
+
+.ppt {
+    border:0px solid #CCC;
+    border-width:0px; 
+    margin-bottom:0px; 
+    max-width: 100%;
+  	position:fixed;
+	top:72px ;
+}
+
+.box {
+	position:relative;
+    font-family: cursive,Microsoft JhengHei;
+	background-color:#e6e6fa; 
+	display: inline-block;
+	margin:0px;
+	width: 25%;
+    height: 500px;
+}
+
+.message-text {
+	color:red; 
+}
+
+.top-text1 {
+	position: absolute;
+	left: 100px;
+	top:20px;
+	font-size: 20px;
+    color: #87ceeb;
+}
+
+.top-p{
+	position: absolute;
+	right: 50%;
+	top:18px;
+	font-size: 28px;
+    color: #272727;
+}
+
+.top-text2 {
+	position: relative;
+	top: 20px;
+	right: 10px;
+	font-size: 16px;
+    color: #87ceeb;
+} 
+
+.top-text3 {
+	position: relative;
+	top: 20px;
+	font-size: 16px;
+    color: #87ceeb; 
+}
+.top-text4 {
+	position: relative;
+	top: 20px;
+	left: 10px;
+	font-size: 16px;
+    color: #87ceeb; 
+}  

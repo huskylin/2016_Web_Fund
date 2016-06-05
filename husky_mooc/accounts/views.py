@@ -66,7 +66,7 @@ def load(request):
 
     if request.method == 'POST':
         ajax_data = json.loads(str(request.body.decode("utf-8")))
-        posts = Post.objects.filter(id__lte = minId)
+        posts = Post.objects.filter(id__lt = minId)
 
         jsonpost = []
         for post in posts:
@@ -74,7 +74,7 @@ def load(request):
         if len(jsonpost) == 0:
             return JsonResponse({'success': False, 'errorMessage': 'No content'})
         else:
-            return JsonResponse({'success': True, 'posts': jsonpost[:howMany]})
+            return JsonResponse({'success': True, 'posts': jsonpost[-howMany:]})
 
 
 @login_required(login_url='/accounts/signin')

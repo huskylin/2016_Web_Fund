@@ -1,0 +1,41 @@
+
+
+body {
+  background-image:url("/static/images/sun.jpg");
+  background-size: 100%;
+  text-align: center;
+}
+
+body {  
+  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
+
+.home-text {
+  position: relative;
+  right:480px;
+  top:10px; 
+  font-size: 20px;
+  color: #87ceeb;
+}
+
+.signin-text2 {
+  position: relative;
+  left:155px;
+  top:10px; 
+  font-size: 16px;
+  text-decoration:underline;
+  color:#87ceeb;
+}
+
+.form {
+  position: relative;
+  top:25px; 
+  padding-top:50px; 
+  padding-bottom: 160px;
+  background-color:rgba(211,211,211,0.6); 
+}
+
+.size {
+	font-size: 16px;
+	font-family: cursive;
+}

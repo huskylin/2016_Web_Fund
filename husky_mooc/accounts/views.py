@@ -59,16 +59,22 @@ def signout(request):
     return HttpResponseRedirect('/index')
 
 def load(request):
+    ajax_data = json.loads(str(request.body.decode("utf-8")))
+    minId     = int(ajax_data['minId'])
+    howMany   = int(ajax_data['howMany'])
+
+
     if request.method == 'POST':
         ajax_data = json.loads(str(request.body.decode("utf-8")))
-        posts = Post.objects.all()
+        posts = Post.objects.filter(id__lte = minId)
+
         jsonpost = []
         for post in posts:
             jsonpost.append(post.as_json())
         if len(jsonpost) == 0:
             return JsonResponse({'success': False, 'errorMessage': 'No content'})
         else:
-            return JsonResponse({'success': True, 'posts': jsonpost})
+            return JsonResponse({'success': True, 'posts': jsonpost[:howMany]})
 
 
 @login_required(login_url='/accounts/signin')
@@ -81,10 +87,19 @@ def post(request):
         ajax_data    = json.loads(str(request.body.decode("utf-8")))
         user    = request.user
         content = ajax_data['content']
+        maxId = ajax_data['maxId']
 
         new_post = Post(content=content, user=user)
         new_post.save()
-        return JsonResponse({'success': True})
+        
+        posts = Post.objects.filter(id__gte = maxId)
+        jsonpost = []
+        for post in posts:
+            jsonpost.append(post.as_json())
+        if len(jsonpost) == 0:
+            return JsonResponse({'success': False, 'errorMessage': 'No content'})
+        else:
+            return JsonResponse({'success': True, 'posts': jsonpost})
 
     return render_to_response('post.html', locals(), RequestContext(request))
 """
@@ -92,4 +107,3 @@ See this page
 http://dokelung-blog.logdown.com/posts/234437-django-notes-10-users-login-and-logout
 http://dokelung-blog.logdown.com/postsa/234896-django-notes-11-permission-and-registration
 """
-1

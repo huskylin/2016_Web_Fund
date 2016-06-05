@@ -23,8 +23,8 @@ function postSuccess() {
 
 function postLoad(posts, len, max) {
   // Debug.
-  //console.log(max);
-  //console.log(len);
+  console.log(max);
+  console.log(len);
   return {
     type: POST_LOAD,
     posts,
@@ -81,6 +81,7 @@ function _loadPost() {
   })
     .then((response) => response.json())
     .then((response) => {
+      console.log(response);
       if (response.success) {
         response.posts.reverse();
         const newLen = response.posts.length + len;
@@ -95,7 +96,7 @@ function _loadPost() {
 class PostItem extends Component {
   render() {
     // Debug
-    //console.log(this.props.post);
+    console.log(this.props.post);
     const { id, date, user, content } = this.props.post;
     return (
       <div>

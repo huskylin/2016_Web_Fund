@@ -45,14 +45,19 @@ body {
 }
 
 .husky {
-  position:relative;
-  top:100px;
-  right:40px;  
+  position:fixed;
+  top:150px;
+  left:570px;
 }
 
 .husky2 {
-position:relative;
-  top:100px;
+  position:fixed;
+  top:200px;
+  left:595px;
+}
+.husky3 {
+  position:relative;
+  top:120px;
   right:20px;
 }
 
@@ -64,6 +69,16 @@ position:relative;
 .word{
   font-family:cursive,monospace;
 
+}
+
+.vertical-container {
+  height: 100px;
+  display: -webkit-flex;
+  display:         flex;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-justify-content: center;
+          justify-content: center;
 }
 /*
  * Header

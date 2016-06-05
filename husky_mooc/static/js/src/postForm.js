@@ -72,7 +72,6 @@ function _loadPost() {
   })
     .then((response) => response.json())
     .then((response) => {
-      console.log(response);
       if (response.success) {
         return postLoad(response.posts);
       } else {
@@ -82,12 +81,8 @@ function _loadPost() {
 }
 
 class PostItem extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
-    const { content } = this.props.content;
+    const { content } = this.props.post;
     return (
       <p>{content}</p>
     );
@@ -95,7 +90,10 @@ class PostItem extends Component {
 }
 
 PostItem.propTypes = {
-  content: PropTypes.string.isRequired
+  post: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    content: PropTypes.string.isRequired
+  }).isRequired
 };
 
 class PostList extends Component {
@@ -108,11 +106,11 @@ class PostList extends Component {
   render() {
     const { posts, postLoad } = this.props;
 
-    const postElements = posts.map((post) => {
+    const postElements = posts.map((post) => (
       <li key={post.id}>
-        <PostItem content={post.content} />
+        <PostItem post={post} />
       </li>
-    });
+    ));
     return (
       <div>
         <ul>{postElements}</ul>

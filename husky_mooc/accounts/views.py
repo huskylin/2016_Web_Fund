@@ -92,11 +92,7 @@ def post(request):
 
         new_post = Post(content=content, user=user)
         new_post.save()
-<<<<<<< HEAD
-        
-=======
 
->>>>>>> ab242c75732fb09a063190a881f990f6f9a31e04
         posts = Post.objects.filter(id__gt = maxId)
         jsonpost = []
         for post in posts:

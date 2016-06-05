@@ -15,26 +15,30 @@ function postFail(errorMessage) {
   };
 }
 
-function postSuccess(newPosts, maxId, len) {
+function postSuccess(newPosts, minId, maxId, len) {
   // Debug.
-  console.log(`minId is ${maxId}`);
+  console.log(`minId is ${minId}`);
+  console.log(`maxId is ${maxId}`);
   console.log(`len is ${len}`);
   return {
     type: POST_SUCCESS,
     newPosts,
+    minId,
     maxId,
     len
   };
 }
 
-function postLoad(oldPosts, minId, len) {
+function postLoad(oldPosts, minId, maxId, len) {
   // Debug.
-  console.log(`maxId is ${minId}`);
+  console.log(`minId is ${minId}`);
+  console.log(`maxId is ${maxId}`);
   console.log(`len is ${len}`);
   return {
     type: POST_LOAD,
     oldPosts,
     minId,
+    maxId,
     len
   };
 }
@@ -57,6 +61,7 @@ function postApp(state = initialState, action = {}) {
       return Object.assign({}, state, {
         errorMessage: '',
         posts: action.newPosts.concat(state.posts),
+        minId: action.minId,
         maxId: action.maxId,
         len: action.len
       });
@@ -65,6 +70,7 @@ function postApp(state = initialState, action = {}) {
         errorMessage: '',
         posts: state.posts.concat(action.oldPosts),
         minId: action.minId,
+        maxId: action.maxId,
         len: action.len
       });
     default:
@@ -75,7 +81,7 @@ function postApp(state = initialState, action = {}) {
 let store = createStore(postApp);
 
 function _loadPost() {
-  const { len, minId } = this.props;
+  const { minId, maxId, len } = this.props;
   const { postFail, postLoad } = this.props.actions;
 
   fetch('/load', {
@@ -99,15 +105,29 @@ function _loadPost() {
 
         const newLen = response.posts.length + len;
         let newMinId;
+        let newMaxId;
 
-        if (response.posts.length !== 0)
-          newMinId = response.posts[0].id;
-        else
+        if (response.posts.length !== 0) {
+          if (response.posts[0].id < minId)
+            newMinId = response.posts[0].id;
+          else
+            newMinId = minId;
+        } else {
           newMinId = minId;
+        }
 
         response.posts.reverse();
 
-        return postLoad(response.posts, newMinId, newLen);
+        if (response.posts.length !== 0) {
+          if (response.posts[0].id > maxId)
+            newMaxId = response.posts[0].id;
+          else
+            newMaxId = maxId;
+        } else {
+          newMaxId = maxId;
+        }
+
+        return postLoad(response.posts, newMinId, newMaxId, newLen);
       } else {
         return postFail(response.errorMessage);
       }
@@ -211,7 +231,7 @@ class App extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    const { maxId, len } = this.props;
+    const { minId, maxId, len } = this.props;
     const { postFail, postSuccess } = this.props.actions;
 
     const contentNode = this.refs.content;
@@ -241,16 +261,31 @@ class App extends Component {
           // debug
           console.log(response.posts);
 
-          response.posts.reverse();
           const newLen = response.posts.length + len;
+          let newMinId;
           let newMaxId;
 
-          if (response.posts.length !== 0)
-            newMaxId = response.posts[0].id;
-          else
-            newMaxId = minId;
+          if (response.posts.length !== 0) {
+            if (response.posts[0].id < minId)
+              newMinId = response.posts[0].id;
+            else
+              newMinId = minId;
+          } else {
+            newMinId = minId;
+          }
 
-          return postSuccess(response.posts, newMaxId, newLen);
+          response.posts.reverse();
+
+          if (response.posts.length !== 0) {
+            if (response.posts[0].id > maxId)
+              newMaxId = response.posts[0].id;
+            else
+              newMaxId = maxId;
+          } else {
+            newMaxId = maxId;
+          }
+
+          return postSuccess(response.posts, newMinId, newMaxId, newLen);
         } else {
           return postFail(response.errorMessage);
         }

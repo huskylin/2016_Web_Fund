@@ -79,26 +79,30 @@
 	  };
 	}
 
-	function postSuccess(newPosts, maxId, len) {
+	function postSuccess(newPosts, minId, maxId, len) {
 	  // Debug.
-	  console.log('minId is ' + maxId);
+	  console.log('minId is ' + minId);
+	  console.log('maxId is ' + maxId);
 	  console.log('len is ' + len);
 	  return {
 	    type: POST_SUCCESS,
 	    newPosts: newPosts,
+	    minId: minId,
 	    maxId: maxId,
 	    len: len
 	  };
 	}
 
-	function postLoad(oldPosts, minId, len) {
+	function postLoad(oldPosts, minId, maxId, len) {
 	  // Debug.
-	  console.log('maxId is ' + minId);
+	  console.log('minId is ' + minId);
+	  console.log('maxId is ' + maxId);
 	  console.log('len is ' + len);
 	  return {
 	    type: POST_LOAD,
 	    oldPosts: oldPosts,
 	    minId: minId,
+	    maxId: maxId,
 	    len: len
 	  };
 	}
@@ -124,6 +128,7 @@
 	      return Object.assign({}, state, {
 	        errorMessage: '',
 	        posts: action.newPosts.concat(state.posts),
+	        minId: action.minId,
 	        maxId: action.maxId,
 	        len: action.len
 	      });
@@ -132,6 +137,7 @@
 	        errorMessage: '',
 	        posts: state.posts.concat(action.oldPosts),
 	        minId: action.minId,
+	        maxId: action.maxId,
 	        len: action.len
 	      });
 	    default:
@@ -143,8 +149,9 @@
 
 	function _loadPost() {
 	  var _props = this.props;
-	  var len = _props.len;
 	  var minId = _props.minId;
+	  var maxId = _props.maxId;
+	  var len = _props.len;
 	  var _props$actions = this.props.actions;
 	  var postFail = _props$actions.postFail;
 	  var postLoad = _props$actions.postLoad;
@@ -171,12 +178,23 @@
 
 	      var newLen = response.posts.length + len;
 	      var newMinId = void 0;
+	      var newMaxId = void 0;
 
-	      if (response.posts.length !== 0) newMinId = response.posts[0].id;else newMinId = minId;
+	      if (response.posts.length !== 0) {
+	        if (response.posts[0].id < minId) newMinId = response.posts[0].id;else newMinId = minId;
+	      } else {
+	        newMinId = minId;
+	      }
 
 	      response.posts.reverse();
 
-	      return postLoad(response.posts, newMinId, newLen);
+	      if (response.posts.length !== 0) {
+	        if (response.posts[0].id > maxId) newMaxId = response.posts[0].id;else newMaxId = maxId;
+	      } else {
+	        newMaxId = maxId;
+	      }
+
+	      return postLoad(response.posts, newMinId, newMaxId, newLen);
 	    } else {
 	      return postFail(response.errorMessage);
 	    }
@@ -358,6 +376,7 @@
 	      e.preventDefault();
 
 	      var _props3 = this.props;
+	      var minId = _props3.minId;
 	      var maxId = _props3.maxId;
 	      var len = _props3.len;
 	      var _props$actions2 = this.props.actions;
@@ -392,13 +411,25 @@
 	          // debug
 	          console.log(response.posts);
 
-	          response.posts.reverse();
 	          var newLen = response.posts.length + len;
+	          var newMinId = void 0;
 	          var newMaxId = void 0;
 
-	          if (response.posts.length !== 0) newMaxId = response.posts[0].id;else newMaxId = minId;
+	          if (response.posts.length !== 0) {
+	            if (response.posts[0].id < minId) newMinId = response.posts[0].id;else newMinId = minId;
+	          } else {
+	            newMinId = minId;
+	          }
 
-	          return postSuccess(response.posts, newMaxId, newLen);
+	          response.posts.reverse();
+
+	          if (response.posts.length !== 0) {
+	            if (response.posts[0].id > maxId) newMaxId = response.posts[0].id;else newMaxId = maxId;
+	          } else {
+	            newMaxId = maxId;
+	          }
+
+	          return postSuccess(response.posts, newMinId, newMaxId, newLen);
 	        } else {
 	          return postFail(response.errorMessage);
 	        }

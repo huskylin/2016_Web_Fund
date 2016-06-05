@@ -29,7 +29,7 @@ def signup(request):
 
         if User.objects.filter(email=email).exists():
             return JsonResponse({'success': False, 'errorMessage': 'Email has been registered!'})
-        
+
         new_user = User(username=username, email=email)
         new_user.set_password(password)
         new_user.save()
@@ -40,8 +40,8 @@ def signup(request):
 def signin(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect('/index')
-    
-    if request.method == 'POST':  
+
+    if request.method == 'POST':
         ajax_data = json.loads(str(request.body.decode("utf-8")))
         username  = ajax_data['username']
         password  = ajax_data['password']
@@ -91,8 +91,8 @@ def post(request):
 
         new_post = Post(content=content, user=user)
         new_post.save()
-        
-        posts = Post.objects.filter(id__gte = maxId)
+
+        posts = Post.objects.filter(id__gt = maxId)
         jsonpost = []
         for post in posts:
             jsonpost.append(post.as_json())

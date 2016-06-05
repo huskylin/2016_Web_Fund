@@ -82,9 +82,14 @@ function _loadPost() {
 
 class PostItem extends Component {
   render() {
-    const { content } = this.props.post;
+    console.log(this.props.post);
+    const { id, date, user, content } = this.props.post;
     return (
-      <p>{content}</p>
+      <div>
+        <p>{date}</p>
+        <p>{user}</p>
+        <p>{content}</p>
+      </div>
     );
   }
 }
@@ -92,7 +97,9 @@ class PostItem extends Component {
 PostItem.propTypes = {
   post: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    content: PropTypes.string.isRequired
+    user: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequred
   }).isRequired
 };
 
@@ -131,9 +138,10 @@ class PostList extends Component {
 PostList.propTypes = {
   posts: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
-    content: PropTypes.string.isRequired
+    user: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequred
   }).isRequired).isRequired
-
 };
 
 class App extends Component {
@@ -198,7 +206,9 @@ App.PropTypes = {
   errorMessage: PropTypes.string.isRequired,
   posts: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
-    content: PropTypes.string.isRequired
+    user: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequred
   }).isRequired).isRequired
 };
 

@@ -26,8 +26,9 @@
         <div class="cover-container">
 
           <div class="masthead clearfix">
-
+            
             <div class="inner">
+              
               {% if request.user.is_authenticated %}
               <h3 class="masthead-brand">{{ request.user }}</h3>
               {% endif %}

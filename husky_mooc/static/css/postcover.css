@@ -5,7 +5,7 @@ a:hover {
 }
 
 body {
-  background-color:#2f4f4f; 
+  background-color:#252E33; 
 }
 
 
@@ -13,7 +13,7 @@ body {
 .husky_mooc-text {
 	padding-left:1000px;
 	padding-bottom:50px; 
-	background-color:#008080;  
+	background-color:#181C24;  
 }
 
 .ppt {
@@ -27,7 +27,7 @@ body {
 
 .box {
 	position:relative;
-    font-family: cursive,Microsoft JhengHei;
+    font-family: sans-serif,Microsoft JhengHei;
 	background-color:#e6e6fa; 
 	display: inline-block;
 	margin:0px;
@@ -51,10 +51,10 @@ body {
 
 .top-p{
 	position: absolute;
-	right: 50%;
+	right: 40%;
 	top:18px;
 	font-size: 28px;
-    color: #272727;
+    color:white;
 }
 
 .top-text2 {

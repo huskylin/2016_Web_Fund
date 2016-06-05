@@ -29,10 +29,8 @@ function postSuccess(newPosts, maxId, len) {
 
 function postLoad(oldPosts, minId, len) {
   // Debug.
-
   console.log(`maxId is ${minId}`);
   console.log(`len is ${len}`);
-
   return {
     type: POST_LOAD,
     oldPosts,
@@ -44,7 +42,7 @@ function postLoad(oldPosts, minId, len) {
 const initialState = {
   errorMessage: '',
   posts: [],
-  minId: 0,
+  minId: 10000,
   maxId: 0,
   len: 0
 };

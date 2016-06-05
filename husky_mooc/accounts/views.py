@@ -58,6 +58,19 @@ def signout(request):
     auth.logout(request)
     return HttpResponseRedirect('/index')
 
+def load(request):
+    if request.method == 'POST':
+        ajax_data = json.loads(str(request.body.decode("utf-8")))
+        posts = Post.objects.all()
+        jsonpost = []
+        for post in posts:
+            jsonpost.append(post.as_json())
+        if len(jsonpost) == 0:
+            return JsonResponse({'success': False, 'errorMessage': 'No content'})
+        else:
+            return JsonResponse({'success': True, 'posts': jsonpost})
+
+
 @login_required(login_url='/accounts/signin')
 def profile(request):
     return render_to_response('profile.html', locals())
@@ -79,3 +92,4 @@ See this page
 http://dokelung-blog.logdown.com/posts/234437-django-notes-10-users-login-and-logout
 http://dokelung-blog.logdown.com/postsa/234896-django-notes-11-permission-and-registration
 """
+1

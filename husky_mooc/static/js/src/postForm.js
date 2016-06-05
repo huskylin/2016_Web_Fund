@@ -57,7 +57,7 @@ let store = createStore(postApp);
 function _loadPost() {
   const { postFail, postLoad } = this.props.actions;
 
-  fetch('/post', {
+  fetch('/load', {
     method: 'POST',
     credentials: 'same-origin',
     headers: {
@@ -72,6 +72,7 @@ function _loadPost() {
   })
     .then((response) => response.json())
     .then((response) => {
+      console.log(response);
       if (response.success) {
         return postLoad(response.posts);
       } else {

@@ -21,16 +21,23 @@ function postSuccess() {
   };
 }
 
-function postLoad(posts) {
+function postLoad(posts, len, max) {
+  // Debug.
+  //console.log(max);
+  //console.log(len);
   return {
     type: POST_LOAD,
-    posts
+    posts,
+    len,
+    max
   };
 }
 
 const initialState = {
   errorMessage: '',
-  posts: []
+  posts: [],
+  len: 0,
+  max: 0
 };
 
 function postApp(state = initialState, action = {}) {
@@ -45,7 +52,9 @@ function postApp(state = initialState, action = {}) {
       });
     case 'POST_LOAD':
       return Object.assign({}, state, {
-        posts: action.posts
+        posts: action.posts.concat(state.posts),
+        len: action.len,
+        max: action.max
       });
     default:
       return state;
@@ -55,6 +64,7 @@ function postApp(state = initialState, action = {}) {
 let store = createStore(postApp);
 
 function _loadPost() {
+  const { len, max } = this.props;
   const { postFail, postLoad } = this.props.actions;
 
   fetch('/load', {
@@ -65,15 +75,17 @@ function _loadPost() {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      // NOTE: This part is not sure.
-      start: 1,
-      end: 10
+      start: max + 1,
+      howMany: 10
     })
   })
     .then((response) => response.json())
     .then((response) => {
       if (response.success) {
-        return postLoad(response.posts);
+        response.posts.reverse();
+        const newLen = response.posts.length + len;
+        const newMax = response.posts[0].id;
+        return postLoad(response.posts, newLen, newMax);
       } else {
         return postFail(response.errorMessage);
       }
@@ -82,7 +94,8 @@ function _loadPost() {
 
 class PostItem extends Component {
   render() {
-    console.log(this.props.post);
+    // Debug
+    //console.log(this.props.post);
     const { id, date, user, content } = this.props.post;
     return (
       <div>
@@ -107,7 +120,7 @@ class PostList extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
-    this._loadPost = _loadPost.bind(this);
+    this._loadPost   = _loadPost.bind(this);
   }
 
   render() {
@@ -118,10 +131,11 @@ class PostList extends Component {
         <PostItem post={post} />
       </li>
     ));
+
     return (
       <div>
         <ul>{postElements}</ul>
-        <button onClick={this.handleClick}>Load</button>
+        <button onClick={this.handleClick}>顯示較早留言</button>
       </div>
     );
   }
@@ -136,6 +150,8 @@ class PostList extends Component {
 }
 
 PostList.propTypes = {
+  len: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
   posts: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     user: PropTypes.string.isRequired,
@@ -160,7 +176,12 @@ class App extends Component {
           Content: <input type="text" ref="content" /><br/>
           <button type="submit">Send Your Post</button>
         </form>
-        <PostList posts={this.props.posts} actions={this.props.actions}/>
+        <PostList
+          posts={this.props.posts}
+          len={this.props.len}
+          max={this.props.max}
+          actions={this.props.actions}
+        />
       </div>
     );
   }
@@ -204,6 +225,8 @@ class App extends Component {
 
 App.PropTypes = {
   errorMessage: PropTypes.string.isRequired,
+  len: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
   posts: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     user: PropTypes.string.isRequired,
@@ -215,7 +238,9 @@ App.PropTypes = {
 function mapStateToProps(state) {
   return {
     errorMessage: state.errorMessage,
-    posts: state.posts
+    posts: state.posts,
+    len: state.len,
+    max: state.max
   };
 }
 

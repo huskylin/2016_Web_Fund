@@ -15,29 +15,38 @@ function postFail(errorMessage) {
   };
 }
 
-function postSuccess() {
+function postSuccess(newPosts, maxId, len) {
+  // Debug.
+  console.log(`minId is ${maxId}`);
+  console.log(`len is ${len}`);
   return {
-    type: POST_SUCCESS
+    type: POST_SUCCESS,
+    newPosts,
+    maxId,
+    len
   };
 }
 
-function postLoad(posts, len, max) {
+function postLoad(oldPosts, minId, len) {
   // Debug.
-  console.log(max);
-  console.log(len);
+
+  console.log(`maxId is ${minId}`);
+  console.log(`len is ${len}`);
+
   return {
     type: POST_LOAD,
-    posts,
-    len,
-    max
+    oldPosts,
+    minId,
+    len
   };
 }
 
 const initialState = {
   errorMessage: '',
   posts: [],
-  len: 0,
-  max: 0
+  minId: 0,
+  maxId: 0,
+  len: 0
 };
 
 function postApp(state = initialState, action = {}) {
@@ -48,13 +57,17 @@ function postApp(state = initialState, action = {}) {
       });
     case 'POST_SUCCESS':
       return Object.assign({}, state, {
-        errorMessage: ''
+        errorMessage: '',
+        posts: action.newPosts.concat(state.posts),
+        maxId: action.maxId,
+        len: action.len
       });
     case 'POST_LOAD':
       return Object.assign({}, state, {
-        posts: action.posts.concat(state.posts),
-        len: action.len,
-        max: action.max
+        errorMessage: '',
+        posts: state.posts.concat(action.oldPosts),
+        minId: action.minId,
+        len: action.len
       });
     default:
       return state;
@@ -64,7 +77,7 @@ function postApp(state = initialState, action = {}) {
 let store = createStore(postApp);
 
 function _loadPost() {
-  const { len, max } = this.props;
+  const { len, minId } = this.props;
   const { postFail, postLoad } = this.props.actions;
 
   fetch('/load', {
@@ -75,7 +88,7 @@ function _loadPost() {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      start: max + 1,
+      minId: minId,
       howMany: 10
     })
   })
@@ -83,10 +96,20 @@ function _loadPost() {
     .then((response) => {
       console.log(response);
       if (response.success) {
-        response.posts.reverse();
+        // debug
+        console.log(response.posts);
+
         const newLen = response.posts.length + len;
-        const newMax = response.posts[0].id;
-        return postLoad(response.posts, newLen, newMax);
+        let newMinId;
+
+        if (response.posts.length !== 0)
+          newMinId = response.posts[0].id;
+        else
+          newMinId = minId;
+
+        response.posts.reverse();
+
+        return postLoad(response.posts, newMinId, newLen);
       } else {
         return postFail(response.errorMessage);
       }
@@ -95,8 +118,7 @@ function _loadPost() {
 
 class PostItem extends Component {
   render() {
-    // Debug
-    console.log(this.props.post);
+
     const { id, date, user, content } = this.props.post;
     return (
       <div>
@@ -151,8 +173,9 @@ class PostList extends Component {
 }
 
 PostList.propTypes = {
+  minId: PropTypes.number.isRequired,
+  maxId: PropTypes.number.isRequired,
   len: PropTypes.number.isRequired,
-  max: PropTypes.number.isRequired,
   posts: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     user: PropTypes.string.isRequired,
@@ -165,7 +188,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this._loadPost    = _loadPost.bind(this);
   }
 
   render() {
@@ -179,8 +201,9 @@ class App extends Component {
         </form>
         <PostList
           posts={this.props.posts}
+          minId={this.props.minId}
+          maxId={this.props.maxId}
           len={this.props.len}
-          max={this.props.max}
           actions={this.props.actions}
         />
       </div>
@@ -190,6 +213,7 @@ class App extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
+    const { maxId, len } = this.props;
     const { postFail, postSuccess } = this.props.actions;
 
     const contentNode = this.refs.content;
@@ -208,6 +232,7 @@ class App extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
+        maxId,
         content
       })
     })
@@ -215,8 +240,19 @@ class App extends Component {
       .then((response) => {
         if (response.success) {
           contentNode.value = '';
-          postSuccess();
-          return this._loadPost();
+          // debug
+          console.log(response.posts);
+
+          response.posts.reverse();
+          const newLen = response.posts.length + len;
+          let newMaxId;
+
+          if (response.posts.length !== 0)
+            newMaxId = response.posts[0].id;
+          else
+            newMaxId = minId;
+
+          return postSuccess(response.posts, newMaxId, newLen);
         } else {
           return postFail(response.errorMessage);
         }
@@ -226,8 +262,9 @@ class App extends Component {
 
 App.PropTypes = {
   errorMessage: PropTypes.string.isRequired,
+  minId: PropTypes.number.isRequired,
+  maxId: PropTypes.number.isRequired,
   len: PropTypes.number.isRequired,
-  max: PropTypes.number.isRequired,
   posts: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     user: PropTypes.string.isRequired,
@@ -240,8 +277,9 @@ function mapStateToProps(state) {
   return {
     errorMessage: state.errorMessage,
     posts: state.posts,
-    len: state.len,
-    max: state.max
+    minId: state.minId,
+    maxId: state.maxId,
+    len: state.len
   };
 }
 

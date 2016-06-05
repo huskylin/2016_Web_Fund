@@ -23,8 +23,8 @@ function postSuccess() {
 
 function postLoad(posts, len, max) {
   // Debug.
-  //console.log(max);
-  //console.log(len);
+  console.log(`max is ${max}`);
+  console.log(`len is ${len}`);
   return {
     type: POST_LOAD,
     posts,
@@ -82,9 +82,16 @@ function _loadPost() {
     .then((response) => response.json())
     .then((response) => {
       if (response.success) {
+        console.log(response.posts);
         response.posts.reverse();
         const newLen = response.posts.length + len;
-        const newMax = response.posts[0].id;
+        let newMax;
+
+        if (response.posts.length !== 0)
+          newMax = response.posts[0].id;
+        else
+          newMax = max;
+
         return postLoad(response.posts, newLen, newMax);
       } else {
         return postFail(response.errorMessage);
@@ -95,7 +102,7 @@ function _loadPost() {
 class PostItem extends Component {
   render() {
     // Debug
-    //console.log(this.props.post);
+    console.log(this.props.post);
     const { id, date, user, content } = this.props.post;
     return (
       <div>

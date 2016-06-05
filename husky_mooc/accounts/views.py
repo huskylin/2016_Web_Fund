@@ -88,11 +88,12 @@ def post(request):
         user    = request.user
         content = ajax_data['content']
         maxId = ajax_data['maxId']
+        print(maxId)
 
         new_post = Post(content=content, user=user)
         new_post.save()
         
-        posts = Post.objects.filter(id__gte = maxId)
+        posts = Post.objects.filter(id__gt = maxId)
         jsonpost = []
         for post in posts:
             jsonpost.append(post.as_json())

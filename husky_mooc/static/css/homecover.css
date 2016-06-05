@@ -17,7 +17,7 @@ a:hover {
 
 html,
 body {
-  background-image:url("/static/images/sun.jpg");
+  background-image:url("/static/images/fire.jpg");
   background-size: 100%;
 }
 body {
@@ -48,6 +48,7 @@ body {
   position:fixed;
   top:150px;
   left:570px;
+  color:white;
 }
 
 .husky2 {
@@ -59,6 +60,7 @@ body {
   position:relative;
   top:120px;
   right:20px;
+  color: white;
 }
 
 /* Padding for spacing */

@@ -21,7 +21,7 @@ body {
     border-width:0px; 
     margin-bottom:0px; 
     max-width: 100%;
-  	position:fixed;
+  	position:absolute;
 	top:72px ;
 }
 

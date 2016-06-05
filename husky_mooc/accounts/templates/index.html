@@ -28,7 +28,6 @@
           <div class="masthead clearfix">
 
             <div class="inner">
-              <h3 class="masthead-brand">Husky_mooc</h3>
               {% if request.user.is_authenticated %}
               <h3 class="masthead-brand">{{ request.user }}</h3>
               {% endif %}
@@ -44,18 +43,14 @@
                   {% endif %}
                 </ul>
               </nav>
-              <nav>
+              <nav class="vertical-container" >
                   <h1 class="husky">學習的平台</h1>
                   <h2 class="husky2"><a href="/post" class="btn btn-lg btn-default">Learn more</a></h2>
               </nav>
-
-                 <nav class="husky2">
+                 <nav class="husky3">
                   <h1 class="word">Husky is porn</h1>
-
-
                   <h2><p class"lead">Second:</p>husky like play some trash games</h2>
                   <hr class="featurette-divider">
-
                 </nav>
             </div>
           </div>

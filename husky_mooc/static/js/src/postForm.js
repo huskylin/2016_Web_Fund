@@ -239,7 +239,7 @@ class App extends Component {
 
     if (content.length < 5) {
       contentNode.value = '';
-      return postFail('你就是這麼沒內容的人 打多一點 廢物!');
+      return postFail('打滿五個字很困難嗎?');
     }
 
     fetch('/post', {

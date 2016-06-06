@@ -45,16 +45,17 @@ body {
 }
 
 .husky {
-  position:fixed;
-  top:150px;
-  left:570px;
+  position:absolute;
+  top:50%;
+  left: 35%;
   color:white;
+  font-size: 28px;
 }
 
 .husky2 {
-  position:fixed;
-  top:200px;
-  left:595px;
+  position:absolute;
+  top:63%;
+  left:35%;
 }
 .husky3 {
   position:relative;
